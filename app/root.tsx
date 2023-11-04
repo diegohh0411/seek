@@ -6,14 +6,17 @@ import {
   Meta,
   Outlet,
   Scripts,
-  ScrollRestoration,
+  ScrollRestoration
 } from "@remix-run/react";
+import { useState } from "react";
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: stylesheet },
 ];
 
 export default function App() {
+  const [isTheModalOpen, setModal] = useState(false);
+
   return (
     <html lang="en">
       <head>
@@ -22,8 +25,8 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body className="bg-white">
-        <Outlet />
+      <body className={`${isTheModalOpen? "overflow-hidden" : "" } bg-white font-monospace`}>
+        <Outlet context={[isTheModalOpen, setModal]} />
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
