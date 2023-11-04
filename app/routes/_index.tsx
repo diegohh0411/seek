@@ -1,6 +1,6 @@
 import type { MetaFunction } from "@remix-run/node";
 import profile from "./../static/profile.jpg"
-import { CreditCardIcon, XMarkIcon, ShoppingBagIcon } from "@heroicons/react/24/outline";
+import { CreditCardIcon, XMarkIcon, ShoppingBagIcon, ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/outline";
 import { useOutletContext } from 'react-router-dom';
 import { useState } from 'react'
 
@@ -34,6 +34,9 @@ export default function Index() {
       setCopiedClabe(false)
     }
   }
+
+  const [isDropOneOpen, setDropOne] = useState(false)
+  const [isDropTwoOpen, setDropTwo] = useState(false)
 
   return (
     <div className={`p-12 md:p-24 flex flex-col gap-12 md:gap-24`}>
@@ -107,16 +110,40 @@ export default function Index() {
       </div>
 
       <hr />
-        <div className="flex flex-col md:flex-row gap-12">
-          <h2 className="font-serif text-3xl">¿Qué es SEEK?</h2>
-          <ul className="text-xl list-disc list-outside">
-            <li className="mb-6">Es la mayor conferencia católica para estudiantes universitarios de Estados Unidos, organizada anualmente por <a href="https://focus.org" target="_blank" className="underline active:decoration-wavy decoration-orange-400 decoration-4">FOCUS</a>.</li>
-            <li className="my-6">Dura 5 días y se celebrará del 1-5 de enero del 2024 en St. Louis, Missouri.</li>
-            <li className="my-6">La conferencia incluirá misas, adoración, confesiones, charlas de oradores católicos de renombre, entretenimiento, compañerismo y oportunidades para la oración.</li>
-            <li className="mt-6">El objetivo es animarnos a los estudiantes en nuestra fe y prepararnos para vivir como discípulos misioneros.</li>
-          </ul>
+  
+      <div className="flex flex-col gap-6 md:-mt-6">
+        <h1 className="text-3xl font-serif">Preguntas frecuentes</h1>
+
+        <div className="flex flex-col gap-12">
+            <div className="flex flex-col border-solid border-gray-400 border-2 p-6 rounded-xl">
+              <div onClick={() => setDropOne(!isDropOneOpen)} className="flex items-center justify-between cursor-pointer">
+                <h2 className="font-serif text-xl">¿Qué es SEEK?</h2>
+                <ChevronDownIcon className={`${isDropOneOpen?"hidden":"block"} h-6 w-6`} />
+                <ChevronUpIcon className={`${isDropOneOpen?"block":"hidden"} h-6 w-6`} />
+              </div>
+              
+              <hr className={isDropOneOpen?"block mt-6":"hidden"}/>
+              <p className={`${isDropOneOpen? "h-fit mt-6":"h-0" } transform duration-700`}>
+                <span className={`${isDropOneOpen? "block":"hidden"} transform duration-700`}>Es la mayor conferencia católica para estudiantes universitarios de Estados Unidos, organizada anualmente por <a href="https://focus.org" target="_blank" className="underline active:decoration-wavy decoration-orange-400 decoration-4">FOCUS</a>. Dura 5 días y renombrados conferencistas atienden, como el Padre Mike Schmitz o Curtis Martin.</span>
+              </p>
+            </div>
         </div>
 
+        <div className="flex flex-col gap-12">
+          <div className="flex flex-col border-solid border-gray-400 border-2 p-6 rounded-xl">
+            <div onClick={() => setDropTwo(!isDropTwoOpen)} className="flex items-center justify-between cursor-pointer">
+              <h2 className="font-serif text-xl">¿Cuánto estoy recaudando?</h2>
+              <ChevronDownIcon className={`${isDropTwoOpen?"hidden":"block"} h-6 w-6`} />
+              <ChevronUpIcon className={`${isDropTwoOpen?"block":"hidden"} h-6 w-6`} />
+            </div>
+            
+            <hr className={isDropTwoOpen?"block mt-6":"hidden"}/>
+            <p className={`${isDropTwoOpen? "h-fit mt-6":"h-0" } transform duration-700`}>
+              <span className={`${isDropTwoOpen? "block":"hidden"} transform duration-700`}>SEEK 24 tomará lugar en St. Louis, Missouri, E.U.A. Viajaré con Focus Monterrey, pagando un total de 15,000 MXN, De este total, ya conseguí 6,000MXN mediante mi trabajo y 100MXN mediante donaciones.</span>
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
