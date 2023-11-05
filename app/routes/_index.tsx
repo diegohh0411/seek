@@ -100,12 +100,12 @@ export default function Index() {
       <div className="flex flex-col md:flex-row gap-12">
         <img className="w-full md:max-h-80 md:w-auto rounded-full" src={profile} />
         <div className="flex flex-col gap-6">
-          <h1 className="md:hidden text-5xl font-serif font-bold leading-tight">Hey &#128075;, <br />soy <span className="text-blue-600">Diego Hernández</span></h1>
-          <h1 className="hidden md:block text-6xl font-serif font-bold leading-tight">Hey &#128075;, soy <span className="text-blue-600">Diego Hernández</span></h1>
-          <p className="text-xl md:text-2xl text-justify">Tengo 19 años, fundé el blog de apologética <a href="https://farodefe.org" target="_blank" className="underline active:decoration-wavy decoration-orange-400 decoration-4">Faro de Fe</a> y quiero ir a <a href="https://seek.focus.org" target="_blank" className="font-bold underline decoration-yellow-400 decoration-4 active:decoration-wavy">SEEK 24</a>: la mayor conferencia para universitarios católicos en Estados Unidos.</p>
+          <h1 className="md:hidden text-5xl font-serif font-bold leading-tight tracking-wide">Hey &#128075;, <br />soy <span className="text-blue-600">Diego Hernández</span></h1>
+          <h1 className="hidden md:block text-6xl font-serif font-bold leading-tight tracking-wide">Hey &#128075;, soy <span className="text-blue-600">Diego Hernández</span></h1>
+          <p className="text-xl md:text-2xl text-justify">Tengo 19 años; fundé el blog de apologética <a href="https://farodefe.org" target="_blank" className="underline active:decoration-wavy decoration-blue-400 decoration-4">Faro de Fe</a>, en el que explicamos, promovemos y defendemos la fe católica; y quiero ir a <a href="https://seek.focus.org" target="_blank" className="font-bold underline decoration-blue-400 decoration-4 active:decoration-wavy">SEEK 24</a>: la mayor conferencia para universitarios católicos en Estados Unidos.</p>
           <p className="text-xl md:text-2xl">¿Me ayudarías a vivirlo?</p>
           <button id="ctaButton" onClick={() => setModal(true)} className={`rounded-full bg-blue-600 text-white p-3 w-full md:max-w-xs font-serif text-xl transform hover:rotate-2 hover:scale-105 duration-200 flex items-center justify-center`}><p>Donar</p></button>
-          <p className="text-small">¿Necesitas un blog profesional, una tienda en línea o un sitio web como este? ¡También soy desarrollador de código! <a href="https://wa.me/528131266343" target="_blank" className="underline active:decoration-wavy decoration-blue-400">Trabajemos juntos.</a></p>
+          <p className="text-small">¿Necesitas un blog profesional, una tienda en línea o un sitio web como este? ¡También soy desarrollador de código! <a href="https://wa.me/528131266343" target="_blank" className="underline active:decoration-wavy decoration-blue-400 decoration-2">Trabajemos juntos.</a></p>
         </div>
       </div>
 
@@ -124,7 +124,7 @@ export default function Index() {
               
               <hr className={isDropOneOpen?"block mt-6":"hidden"}/>
               <p className={`${isDropOneOpen? "h-fit mt-6":"h-0" } transform duration-700`}>
-                <span className={`${isDropOneOpen? "block":"hidden"} transform duration-700`}>Es la mayor conferencia católica para estudiantes universitarios de Estados Unidos, organizada anualmente por <a href="https://focus.org" target="_blank" className="underline active:decoration-wavy decoration-orange-400 decoration-4">FOCUS</a>. Dura 5 días y renombrados conferencistas atienden, como el Padre Mike Schmitz o Curtis Martin.</span>
+                <span className={`${isDropOneOpen? "block":"hidden"} transform duration-700`}>Es la mayor conferencia católica para estudiantes universitarios de Estados Unidos, organizada anualmente por <a href="https://focus.org" target="_blank" className="underline active:decoration-wavy decoration-blue-400 decoration-4">FOCUS</a>. Dura 5 días y renombrados conferencistas atienden, como el Padre Mike Schmitz o Curtis Martin.</span>
               </p>
             </div>
         </div>
@@ -139,7 +139,7 @@ export default function Index() {
             
             <hr className={isDropTwoOpen?"block mt-6":"hidden"}/>
             <p className={`${isDropTwoOpen? "h-fit mt-6":"h-0" } transform duration-700`}>
-              <span className={`${isDropTwoOpen? "block":"hidden"} transform duration-700`}>SEEK 24 tomará lugar en St. Louis, Missouri, E.U.A. Viajaré con Focus Monterrey, pagando un total de 15,000 MXN, De este total, ya conseguí 6,000MXN mediante mi trabajo y 100MXN mediante donaciones.</span>
+              <span className={`${isDropTwoOpen? "block":"hidden"} transform duration-700`}>Puesto que SEEK 24 tomará lugar en St. Louis, Missouri, E.U.A., viajaré con Focus Monterrey, pagando un total de 15,000 MXN. De este total, ya conseguí 6,000MXN mediante mi trabajo y 100MXN mediante donaciones.</span>
             </p>
           </div>
         </div>

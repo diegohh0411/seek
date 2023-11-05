@@ -25,7 +25,7 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body className={`${isTheModalOpen? "overflow-hidden" : "" } bg-white font-monospace`}>
+      <body className={`${isTheModalOpen? "overflow-hidden" : "" } bg-white font-sans`}>
         <Outlet context={[isTheModalOpen, setModal]} />
         <ScrollRestoration />
         <Scripts />

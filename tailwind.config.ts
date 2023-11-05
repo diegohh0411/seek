@@ -6,7 +6,7 @@ export default {
     extend: {
       fontFamily: {
         'serif': ['Young Serif'],
-        'monospace': ['JetBrains Mono']
+        'sans-serif': ['Montserrat']
       }
     },
   },
