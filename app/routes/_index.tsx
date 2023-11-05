@@ -56,7 +56,7 @@ export default function Index() {
             <h1 className="text-3xl font-serif ">SPEI</h1>
             <CreditCardIcon className="w-6 h-6"/>
           </div>
-          <p className="text-xl">Puedes depositarme a mi cuenta personal. En la descripción, pon tu nombre y el texto 'SEEK' para reconocerte :)</p>
+          <p className="text-xl">Puedes depositarme a mi cuenta personal. En la descripción, pon tu nombre y el texto 'SEEK' para poder agradecerte :)</p>
           <ul className="list-disc list-inside">
             <li className="my-3"><span className="font-bold">Banco:</span> Sistema de Transferencias y Pagos (STP)</li>
             <p className={`text-xs underline ${copiedBank?"decoration-orange-400":"decoration-blue-400"} active:decoration-wavy decoration-2 cursor-pointer`} onClick={() => copyBankToClipboard("Sistema de Transferencias y Pagos (STP)")}>{copiedBank?"¡Ya copiaste el banco!":"Haz clic aquí para copiar el banco"}</p>
