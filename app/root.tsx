@@ -26,6 +26,23 @@ export default function App() {
         <Links />
       </head>
       <body className={`${isTheModalOpen? "overflow-hidden" : "" } bg-white font-sans`}>
+      <script
+              async
+              src="https://www.googletagmanager.com/gtag/js?id=G-1N1DZPPJPE"
+            />
+      <script
+              async
+              id="gtag-init"
+              dangerouslySetInnerHTML={{
+                __html: `
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+
+                gtag('config', 'G-1N1DZPPJPE');
+              `,
+              }}
+            />
         <Outlet context={[isTheModalOpen, setModal]} />
         <ScrollRestoration />
         <Scripts />
