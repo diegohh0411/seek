@@ -12,9 +12,8 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Index() {
-  const context:boolean|Function[]  = useOutletContext()
-  const isTheModalOpen:boolean = context[0]
-  const setModal:Function = context[1]
+  const [isTheModalOpen, setModal]:boolean|Function[]  = useOutletContext()
+  
 
   const [copiedBank, setCopiedBank] = useState(false)
   const copyBankToClipboard = async (text: string) => {
@@ -37,6 +36,7 @@ export default function Index() {
 
   const [isDropOneOpen, setDropOne] = useState(false)
   const [isDropTwoOpen, setDropTwo] = useState(false)
+  const [isDropThreeOpen, setDropThree] = useState(false)
 
   return (
     <div className={`p-12 md:p-24 flex flex-col gap-12 md:gap-24`}>
@@ -48,7 +48,7 @@ export default function Index() {
         <XMarkIcon onClick={() => setModal(false)} className={`w-6 h-6 text-black absolute top-6 right-6 cursor-pointer z-20`} />
         <div onClick={(e) => e.stopPropagation()} className={`md:hidden 
                         bg-white fixed inset-0
-                          ${isTheModalOpen? "opacity-100" : "opacity-0"}
+                          ${isTheModalOpen? "opacity-100 h-screen" : "opacity-0 h-0"}
                           transform ease-in-out duration-200
                           flex flex-col p-12 md:p-24 gap-3 md:gap-3`}>
 
@@ -56,12 +56,12 @@ export default function Index() {
             <h1 className="text-3xl font-serif ">SPEI</h1>
             <CreditCardIcon className="w-6 h-6"/>
           </div>
-          <p className="text-xl">Puedes depositarme a mi cuenta personal. En la descripción, pon tu nombre y el texto 'SEEK' para poder agradecerte :)</p>
+          <p className="text-xl">Puedes depositarme a mi cuenta personal. En la descripción de la transferencia, pon tu nombre y el texto 'SEEK' para poder agradecerte :)</p>
           <ul className="list-disc list-inside">
             <li className="my-3"><span className="font-bold">Banco:</span> Sistema de Transferencias y Pagos (STP)</li>
-            <p className={`text-xs underline ${copiedBank?"decoration-orange-400":"decoration-blue-400"} active:decoration-wavy decoration-2 cursor-pointer`} onClick={() => copyBankToClipboard("Sistema de Transferencias y Pagos (STP)")}>{copiedBank?"¡Ya copiaste el banco!":"Haz clic aquí para copiar el banco"}</p>
+            <p className={`text-xs underline ${copiedBank?"decoration-green-400":"decoration-blue-400"} active:decoration-wavy decoration-2 cursor-pointer`} onClick={() => copyBankToClipboard("Sistema de Transferencias y Pagos (STP)")}>{copiedBank?"¡Ya copiaste el banco!":"Haz clic aquí para copiar el banco"}</p>
             <li className="my-3"><span className="font-bold">CLABE:</span> 646 731 2586 1108 4893</li>
-            <p className={`text-xs underline ${copiedClabe?"decoration-orange-400":"decoration-blue-400"} active:decoration-wavy decoration-2 cursor-pointer`} onClick={() => copyClabeToClipboard("646731258611084893")}>{copiedClabe?"¡Ya copiaste la clabe!":"Haz clic aquí para copiar la clabe"}</p>
+            <p className={`text-xs underline ${copiedClabe?"decoration-green-400":"decoration-blue-400"} active:decoration-wavy decoration-2 cursor-pointer`} onClick={() => copyClabeToClipboard("646731258611084893")}>{copiedClabe?"¡Ya copiaste la clabe!":"Haz clic aquí para copiar la clabe"}</p>
           </ul>
           <hr />
           <div className="flex items-center mt-6 gap-6">
@@ -84,16 +84,16 @@ export default function Index() {
           <p className="text-xl">Puedes depositarme a mi cuenta personal. En la descripción, pon tu nombre y el texto 'SEEK' para reconocerte :)</p>
           <ul className="list-disc list-inside">
             <li className="my-3"><span className="font-bold">Banco:</span> Sistema de Transferencias y Pagos (STP)</li>
-            <p className={`text-xs underline ${copiedBank?"decoration-orange-400":"decoration-blue-400"} active:decoration-wavy decoration-2 cursor-pointer`} onClick={() => copyBankToClipboard("Sistema de Transferencias y Pagos (STP)")}>{copiedBank?"¡Ya copiaste el banco!":"Haz clic aquí para copiar el banco"}</p>
+            <p className={`text-xs underline ${copiedBank?"decoration-green-400":"decoration-blue-400"} active:decoration-wavy decoration-2 cursor-pointer`} onClick={() => copyBankToClipboard("Sistema de Transferencias y Pagos (STP)")}>{copiedBank?"¡Ya copiaste el banco!":"Haz clic aquí para copiar el banco"}</p>
             <li className="my-3"><span className="font-bold">CLABE:</span> 646 731 2586 1108 4893</li>
-            <p className={`text-xs underline ${copiedClabe?"decoration-orange-400":"decoration-blue-400"} active:decoration-wavy decoration-2 cursor-pointer`} onClick={() => copyClabeToClipboard("646731258611084893")}>{copiedClabe?"¡Ya copiaste la clabe!":"Haz clic aquí para copiar la clabe"}</p>
+            <p className={`text-xs underline ${copiedClabe?"decoration-green-400":"decoration-blue-400"} active:decoration-wavy decoration-2 cursor-pointer`} onClick={() => copyClabeToClipboard("646731258611084893")}>{copiedClabe?"¡Ya copiaste la clabe!":"Haz clic aquí para copiar la clabe"}</p>
           </ul>
           <hr />
           <div className="flex items-center mt-6 gap-6">
             <h1 className="text-3xl font-serif ">Mercado Pago</h1>
             <ShoppingBagIcon className="w-6 h-6"/>
           </div>
-          <p>Si preferirías donar con tarjeta de débito o crédito directamente, puedes hacerlo a través de <a className="underline decoration-blue-400 decoration-2" href="https://link.mercadopago.com.mx/diegohh">Mercado Pago</a>.</p>
+          <p className="text-xl">Si preferirías donar con tarjeta de débito o crédito directamente, puedes hacerlo a través de <a className="underline decoration-blue-400 decoration-2" href="https://link.mercadopago.com.mx/diegohh">Mercado Pago</a>.</p>
         </div>  
       </div>
 
@@ -124,7 +124,7 @@ export default function Index() {
               
               <hr className={isDropOneOpen?"block mt-6":"hidden"}/>
               <p className={`${isDropOneOpen? "h-fit mt-6":"h-0" } transform duration-700`}>
-                <span className={`${isDropOneOpen? "block":"hidden"} transform duration-700`}>Es la mayor conferencia católica para estudiantes universitarios de Estados Unidos, organizada anualmente por <a href="https://focus.org" target="_blank" className="underline active:decoration-wavy decoration-blue-400 decoration-4">FOCUS</a>. Dura 5 días y renombrados conferencistas atienden, como el Padre Mike Schmitz o Curtis Martin.</span>
+                <span className={`${isDropOneOpen? "block":"hidden"} transform duration-700`}>Es la mayor conferencia católica para estudiantes universitarios de Estados Unidos, organizada anualmente por <a href="https://focus.org" target="_blank" className="underline active:decoration-wavy decoration-blue-400 decoration-4">FOCUS</a>. Dura 5 días y renombrados conferencistas atienden, como el Padre Mike Schmitz o el Dr. Curtis Martin.</span>
               </p>
             </div>
         </div>
@@ -139,7 +139,22 @@ export default function Index() {
             
             <hr className={isDropTwoOpen?"block mt-6":"hidden"}/>
             <p className={`${isDropTwoOpen? "h-fit mt-6":"h-0" } transform duration-700`}>
-              <span className={`${isDropTwoOpen? "block":"hidden"} transform duration-700`}>Puesto que SEEK 24 tomará lugar en St. Louis, Missouri, E.U.A., viajaré con Focus Monterrey, pagando un total de 15,000 MXN. De este total, ya conseguí 6,000MXN mediante mi trabajo y 100MXN mediante donaciones.</span>
+              <span className={`${isDropTwoOpen? "block":"hidden"} transform duration-700`}>Para cubrir los costos de transporte, hospedaje y alimentación, necesitaré 15,000 MXN. De este total, ya conseguí 6,000 MXN mediante mi trabajo y 100 MXN mediante donaciones.</span>
+            </p>
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-12">
+          <div className="flex flex-col border-solid border-gray-400 border-2 p-6 rounded-xl">
+            <div onClick={() => setDropThree(!isDropThreeOpen)} className="flex items-center justify-between cursor-pointer">
+              <h2 className="font-serif text-xl">¿Donde será SEEK y cuánto durará?</h2>
+              <ChevronDownIcon className={`${isDropThreeOpen?"hidden":"block"} h-6 w-6`} />
+              <ChevronUpIcon className={`${isDropThreeOpen?"block":"hidden"} h-6 w-6`} />
+            </div>
+            
+            <hr className={isDropThreeOpen?"block mt-6":"hidden"}/>
+            <p className={`${isDropThreeOpen? "h-fit mt-6":"h-0" } transform duration-700`}>
+              <span className={`${isDropThreeOpen? "block":"hidden"} transform duration-700`}>Este año, SEEK tendrá lugar en St. Louis, Missouri, E.U.A. del 1 al 5 de enero. El plan es salir de Monterrey el 31 de diciembre y regresar para el 6 o 7 de enero.</span>
             </p>
           </div>
         </div>
