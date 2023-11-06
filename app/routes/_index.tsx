@@ -4,34 +4,38 @@ import { CreditCardIcon, XMarkIcon, ShoppingBagIcon, ChevronDownIcon, ChevronUpI
 import { useOutletContext } from 'react-router-dom';
 import { useState } from 'react'
 
+import { config } from "seek.config"
+
 export const meta: MetaFunction = () => {
   return [
-    { title: "Diego Hernández" },
-    { name: "description", content: "Aquí, Diego Hernández está recibiendo donaciones para ir a SEEK 24." },
+    { title: config.name },
+    { name: "description", content: `Aquí, ${config.name} está recibiendo donaciones para ir a SEEK 24.` },
   ];
 };
 
 export default function Index() {
   const [isTheModalOpen, setModal]:boolean|Function[]  = useOutletContext()
   
+  const clabeFormatter = (clabe: string) => {
+    return clabe.replace(/(\d{3})(\d{3})(\d{4})(\d{4})(\d{4})/, '$1 $2 $3 $4 $5')
+  }
+
+  const copy = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text)
+      return true
+    } catch (err) {
+      return false
+    }
+  }
 
   const [copiedBank, setCopiedBank] = useState(false)
   const copyBankToClipboard = async (text: string) => {
-    try {
-      await navigator.clipboard.writeText(text)
-      setCopiedBank(true)
-    } catch (err) {
-      setCopiedBank(false)
-    }
+    setCopiedBank(await copy(text))
   }
   const [copiedClabe, setCopiedClabe] = useState(false)
   const copyClabeToClipboard = async (text: string) => {
-    try {
-      await navigator.clipboard.writeText(text)
-      setCopiedClabe(true)
-    } catch (err) {
-      setCopiedClabe(false)
-    }
+    setCopiedClabe(await copy(text))
   }
 
   const [isDropOneOpen, setDropOne] = useState(false)
@@ -56,19 +60,25 @@ export default function Index() {
             <h1 className="text-3xl font-serif ">SPEI</h1>
             <CreditCardIcon className="w-6 h-6"/>
           </div>
-          <p className="text-xl">Puedes depositarme a mi cuenta personal. En la descripción de la transferencia, pon tu nombre y el texto 'SEEK' para poder agradecerte :)</p>
+          <p className="text-xl">{config.speiInstructions ? config.speiInstructions : "Puedes depositarme a mi cuenta personal. En la descripción de la transferencia, pon tu nombre y el texto 'SEEK' para poder agradecerte :)"}</p>
           <ul className="list-disc list-inside">
-            <li className="my-3"><span className="font-bold">Banco:</span> Sistema de Transferencias y Pagos (STP)</li>
-            <p className={`text-xs underline ${copiedBank?"decoration-green-400":"decoration-blue-400"} active:decoration-wavy decoration-2 cursor-pointer`} onClick={() => copyBankToClipboard("Sistema de Transferencias y Pagos (STP)")}>{copiedBank?"¡Ya copiaste el banco!":"Haz clic aquí para copiar el banco"}</p>
-            <li className="my-3"><span className="font-bold">CLABE:</span> 646 731 2586 1108 4893</li>
-            <p className={`text-xs underline ${copiedClabe?"decoration-green-400":"decoration-blue-400"} active:decoration-wavy decoration-2 cursor-pointer`} onClick={() => copyClabeToClipboard("646731258611084893")}>{copiedClabe?"¡Ya copiaste la clabe!":"Haz clic aquí para copiar la clabe"}</p>
+            <li className="my-3"><span className="font-bold">Banco:</span> {config.bank}</li>
+            <p className={`text-xs underline ${copiedBank?"decoration-green-400":"decoration-blue-400"} active:decoration-wavy decoration-2 cursor-pointer`} onClick={() => copyBankToClipboard(config.bank)}>{copiedBank?"¡Ya copiaste el banco!":"Haz clic aquí para copiar el banco"}</p>
+            <li className="my-3"><span className="font-bold">CLABE:</span> {clabeFormatter(config.clabe)}</li>
+            <p className={`text-xs underline ${copiedClabe?"decoration-green-400":"decoration-blue-400"} active:decoration-wavy decoration-2 cursor-pointer`} onClick={() => copyClabeToClipboard(config.clabe)}>{copiedClabe?"¡Ya copiaste la clabe!":"Haz clic aquí para copiar la clabe"}</p>
           </ul>
-          <hr />
-          <div className="flex items-center mt-6 gap-6">
-            <h1 className="text-3xl font-serif ">Mercado Pago</h1>
-            <ShoppingBagIcon className="w-6 h-6"/>
-          </div>
-          <p>Si preferirías donar con tarjeta de débito o crédito directamente, puedes hacerlo a través de <a className="underline decoration-blue-400 decoration-2" href="https://link.mercadopago.com.mx/diegohh">Mercado Pago</a>.</p>
+          { config.nombreDePasarela && config.urlDePasarela ?
+              <div className="mt-6">
+                <hr />
+                <div className="flex items-center mt-6 gap-6">
+                  <h1 className="text-3xl font-serif ">{config.nombreDePasarela}</h1>
+                  <ShoppingBagIcon className="w-6 h-6"/>
+                </div>
+                <p>Si preferirías donar con tarjeta de débito o crédito directamente, puedes hacerlo a través de <a href={config.urlDePasarela}>{config.nombreDePasarela}</a>.</p>
+              </div>
+              :
+              null
+          }
         </div> 
 
         <div onClick={(e) => e.stopPropagation()} className={`hidden
@@ -81,32 +91,42 @@ export default function Index() {
             <h1 className="text-3xl font-serif ">SPEI</h1>
             <CreditCardIcon className="w-6 h-6"/>
           </div>
-          <p className="text-xl">Puedes depositarme a mi cuenta personal. En la descripción, pon tu nombre y el texto 'SEEK' para reconocerte :)</p>
+          <p className="text-xl">{config.speiInstructions ? config.speiInstructions : "Puedes depositarme a mi cuenta personal. En la descripción de la transferencia, pon tu nombre y el texto 'SEEK' para poder agradecerte :)"}</p>
           <ul className="list-disc list-inside">
-            <li className="my-3"><span className="font-bold">Banco:</span> Sistema de Transferencias y Pagos (STP)</li>
-            <p className={`text-xs underline ${copiedBank?"decoration-green-400":"decoration-blue-400"} active:decoration-wavy decoration-2 cursor-pointer`} onClick={() => copyBankToClipboard("Sistema de Transferencias y Pagos (STP)")}>{copiedBank?"¡Ya copiaste el banco!":"Haz clic aquí para copiar el banco"}</p>
-            <li className="my-3"><span className="font-bold">CLABE:</span> 646 731 2586 1108 4893</li>
-            <p className={`text-xs underline ${copiedClabe?"decoration-green-400":"decoration-blue-400"} active:decoration-wavy decoration-2 cursor-pointer`} onClick={() => copyClabeToClipboard("646731258611084893")}>{copiedClabe?"¡Ya copiaste la clabe!":"Haz clic aquí para copiar la clabe"}</p>
+            <li className="my-3"><span className="font-bold">Banco:</span> {config.bank}</li>
+            <p className={`text-xs underline ${copiedBank?"decoration-green-400":"decoration-blue-400"} active:decoration-wavy decoration-2 cursor-pointer`} onClick={() => copyBankToClipboard(config.bank)}>{copiedBank?"¡Ya copiaste el banco!":"Haz clic aquí para copiar el banco"}</p>
+            <li className="my-3"><span className="font-bold">CLABE:</span> {clabeFormatter(config.clabe)}</li>
+            <p className={`text-xs underline ${copiedClabe?"decoration-green-400":"decoration-blue-400"} active:decoration-wavy decoration-2 cursor-pointer`} onClick={() => copyClabeToClipboard(config.clabe)}>{copiedClabe?"¡Ya copiaste la clabe!":"Haz clic aquí para copiar la clabe"}</p>
           </ul>
-          <hr />
-          <div className="flex items-center mt-6 gap-6">
-            <h1 className="text-3xl font-serif ">Mercado Pago</h1>
-            <ShoppingBagIcon className="w-6 h-6"/>
-          </div>
-          <p className="text-xl">Si preferirías donar con tarjeta de débito o crédito directamente, puedes hacerlo a través de <a className="underline decoration-blue-400 decoration-2" href="https://link.mercadopago.com.mx/diegohh">Mercado Pago</a>.</p>
+          { config.nombreDePasarela && config.urlDePasarela ?
+              <div className="mt-6">
+                <hr />
+                <div className="flex items-center mt-6 gap-6">
+                  <h1 className="text-3xl font-serif ">{config.nombreDePasarela}</h1>
+                  <ShoppingBagIcon className="w-6 h-6"/>
+                </div>
+                <p>Si preferirías donar con tarjeta de débito o crédito directamente, puedes hacerlo a través de <a href={config.urlDePasarela}>{config.nombreDePasarela}</a>.</p>
+              </div>
+              :
+              null
+          }  
         </div>  
       </div>
 
       <div className="flex flex-col md:flex-row gap-12">
         <img className="w-full md:max-h-80 md:w-auto rounded-full" src={profile} />
         <div className="flex flex-col gap-6">
-          <h1 className="md:hidden text-5xl font-serif font-bold leading-tight tracking-wide">Hey &#128075;, <br />soy <span className="text-blue-600">Diego Hernández</span></h1>
-          <h1 className="hidden md:block text-6xl font-serif font-bold leading-tight tracking-wide">Hey &#128075;, soy <span className="text-blue-600">Diego Hernández</span></h1>
-          <p className="text-xl md:text-2xl text-justify">Tengo 19 años; fundé el blog de apologética <a href="https://farodefe.org" target="_blank" className="underline active:decoration-wavy decoration-blue-400 decoration-4">Faro de Fe</a>, en el que explicamos, promovemos y defendemos la fe católica; y quiero ir a <a href="https://seek.focus.org" target="_blank" className="font-bold underline decoration-blue-400 decoration-4 active:decoration-wavy">SEEK 24</a>: la mayor conferencia para universitarios católicos en Estados Unidos.</p>
-          <p className="text-xl md:text-2xl">¿Me ayudarías a vivirlo?</p>
-          <button id="ctaButton" onClick={() => setModal(true)} className={`rounded-full bg-blue-600 text-white p-3 w-full md:max-w-xs font-serif text-xl transform hover:rotate-2 hover:scale-105 duration-200 flex items-center justify-center`}><p>Donar</p></button>
-          <p className="text-small">¿Necesitas un blog profesional, una tienda en línea o un sitio web como este? ¡También soy desarrollador de código! <a href="https://wa.me/528131266343" target="_blank" className="underline active:decoration-wavy decoration-blue-400 decoration-2">Trabajemos juntos.</a></p>
-        </div>
+          <h1 className="md:hidden text-5xl font-serif font-bold leading-tight tracking-wide">Hey &#128075;, <br />soy <span className="text-primary">{config.name}</span></h1>
+          <h1 className="hidden md:block text-6xl font-serif font-bold leading-tight tracking-wide">Hey &#128075;, soy <span className="text-primary">{config.name}</span></h1>
+          <p className="text-xl md:text-2xl text-justify" dangerouslySetInnerHTML={{ __html: config.description }}></p>
+          <p className="text-xl md:text-2xl">{config.ctaText}</p>
+          <button id="ctaButton" onClick={() => setModal(true)} className={`rounded-full bg-primary text-white p-3 w-full md:max-w-xs font-serif text-xl transform hover:rotate-2 hover:scale-105 duration-200 flex items-center justify-center`}><p>Donar</p></button>
+          { config.workMessage ?
+            <p className="text-small" dangerouslySetInnerHTML={{__html: config.workMessage}}></p>
+            :
+            null
+          }
+          </div>
       </div>
 
       <hr />
@@ -124,7 +144,7 @@ export default function Index() {
               
               <hr className={isDropOneOpen?"block mt-6":"hidden"}/>
               <p className={`${isDropOneOpen? "h-fit mt-6":"h-0" } transform duration-700`}>
-                <span className={`${isDropOneOpen? "block":"hidden"} transform duration-700`}>Es la mayor conferencia católica para estudiantes universitarios de Estados Unidos, organizada anualmente por <a href="https://focus.org" target="_blank" className="underline active:decoration-wavy decoration-blue-400 decoration-4">FOCUS</a>. Dura 5 días y renombrados conferencistas atienden, como el Padre Mike Schmitz o el Dr. Curtis Martin.</span>
+                <span className={`${isDropOneOpen? "block":"hidden"} transform duration-700`}>Es la mayor conferencia católica para estudiantes universitarios de Estados Unidos, organizada anualmente por <a href="https://focus.org" target="_blank">FOCUS</a>. Dura 5 días y renombrados conferencistas atienden, como el Padre Mike Schmitz o el Dr. Curtis Martin.</span>
               </p>
             </div>
         </div>
