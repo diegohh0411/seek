@@ -1,7 +1,7 @@
 export const config = {
     name: "María Emma",
     description: `Tengo 19 años y quiero ir a <a href="https://seek.focus.org" target="_blank">SEEK 24</a>: la mayor conferencia para universitarios católicos en Estados Unidos.`,
-    primaryColor: "61 78 60",
+    primaryColor: "44 160 90",
     clabe: "clabe de maria emma va aqui",
     bank: "banco de maria emma va aqui",
     speiInstructions: "Puedes depositarme a mi cuenta personal. En la descripción de la transferencia, pon tu nombre y el texto 'SEEK' para poder agradecerte :)",
