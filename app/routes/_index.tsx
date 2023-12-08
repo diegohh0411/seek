@@ -4,11 +4,15 @@ import { CreditCardIcon, XMarkIcon, ChevronDownIcon, ChevronUpIcon } from "@hero
 import { useOutletContext } from 'react-router-dom';
 import { useState } from 'react'
 
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { Doughnut } from 'react-chartjs-2'
+ChartJS.register(ArcElement, Tooltip, Legend);
+
 import { config } from "seek.config"
 
 export const meta: MetaFunction = () => {
   return [
-    { title: config.name },
+    { title: `${config.name} | SEEK 24` },
     { name: "description", content: `Aquí, ${config.name} está recibiendo donaciones para ir a SEEK 24.` },
   ];
 };
@@ -37,6 +41,48 @@ export default function Index() {
   const copyClabeToClipboard = async (text: string) => {
     setCopiedClabe(await copy(text))
   }
+
+  const dineroTotalRequerido: number = 15500
+  const dineroTrabajado: number = 6000 + 1039 + 1600
+  const dineroDonado: number = 100
+  const chartData = {
+    labels: ['Capital trabajado', 'Capital donado', 'Faltante'],
+    datasets: [
+      {
+        label: '# of Votes',
+        data: [dineroTrabajado, dineroDonado, dineroTotalRequerido - dineroTrabajado - dineroDonado],
+        backgroundColor: [
+          'rgb(37, 99, 235)',
+          'rgb(74, 222, 128)',
+          'lightgray',
+        ],
+        borderColor: [
+          'rgb(37, 99, 235)',
+          'rgb(74, 222, 128)',
+          'gray',
+        ],
+        borderWidth: 1,
+        spacing: 10
+      },
+    ],
+  }
+
+  const chartOptions = {
+    plugins: {
+      tooltip: {
+        callbacks: {
+          label: function (context: any) {
+            const label = new Intl.NumberFormat('en-US', {
+              style: 'currency',
+              currency: 'MXN',
+            }).format(context.parsed);
+            
+            return label;
+          },
+        },
+      },
+    },
+  };  
 
   return (
     <div className={`p-12 md:p-24 flex flex-col gap-12 md:gap-24 font-sans-serif`}>
@@ -100,10 +146,21 @@ export default function Index() {
         <div className="flex flex-col gap-6">
           <h1 className="md:hidden text-5xl font-serif font-bold leading-tight tracking-wide">Hey &#128075;, <br />soy <span className="text-blue-600">Diego Hernández</span></h1>
           <h1 className="hidden md:block text-6xl font-serif font-bold leading-tight tracking-wide">Hey &#128075;, soy <span className="text-blue-600">Diego Hernández</span></h1>
-          <p className="text-xl md:text-2xl text-justify">Tengo 19 años y estoy deseando ir a <a href="https://seek.focus.org" target="_blank" className="underline decoration-blue-400 decoration-4 active:decoration-wavy">SEEK 24</a>, la mayor conferencia para universitarios católicos en Estados Unidos, para encontrarme con Cristo.</p>
+          <p className="text-xl md:text-2xl text-justify">Tengo 19 años y estoy deseando ir a <a href="https://seek.focus.org" target="_blank" className="underline decoration-blue-400 decoration-4 active:decoration-wavy">SEEK 24</a>, la mayor conferencia de universitarios católicos en Estados Unidos, para encontrarme con Cristo.</p>
           <p className="text-xl md:text-2xl">¿Me ayudarías a vivirlo?</p>
           <button id="ctaButton" onClick={() => setModal(true)} className={`rounded-full bg-blue-600 text-white p-3 w-full md:max-w-xs font-serif text-xl transform hover:rotate-2 hover:scale-105 duration-200 flex items-center justify-center`}><p>Donar</p></button>
           <p className="text-small">¿Necesitas un blog profesional o un sitio web como este? ¡También soy desarrollador de código! <a href="https://wa.me/528131266343" target="_blank" className="underline active:decoration-wavy decoration-blue-400 decoration-2">Trabajemos juntos.</a></p>
+        </div>
+      </div>
+
+      <hr />
+
+      <div className="flex flex-col gap-6">
+        <h3 className="text-3xl font-serif">La meta es recaudar 15,000 pesos.</h3>
+        <p>La mayor parte del dinero ya la he conseguido mediante mi trabajo como desarrollador de código. Pero, te necesito para cubrir lo último.</p>
+        <div className="w-full md:max-w-sm flex flex-col gap-3 items-center justify-center">
+          <Doughnut data={chartData} options={chartOptions} />
+          <p className="text-xs">Esta gráfica fue actualizada por última vez a las 12:55 PM del 8.DEC.23</p>
         </div>
       </div>
 
