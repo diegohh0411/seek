@@ -4,34 +4,38 @@ import { CreditCardIcon, XMarkIcon, ChevronDownIcon, ChevronUpIcon } from "@hero
 import { useOutletContext } from 'react-router-dom';
 import { useState } from 'react'
 
+import { config } from "seek.config"
+
 export const meta: MetaFunction = () => {
   return [
-    { title: "Diego Hernández" },
-    { name: "description", content: "Aquí, Diego Hernández está recibiendo donaciones para ir a SEEK 24." },
+    { title: config.name },
+    { name: "description", content: `Aquí, ${config.name} está recibiendo donaciones para ir a SEEK 24.` },
   ];
 };
 
 export default function Index() {
   const [isTheModalOpen, setModal]:boolean|Function[]  = useOutletContext()
   
+  const clabeFormatter = (clabe: string) => {
+    return clabe.replace(/(\d{3})(\d{3})(\d{4})(\d{4})(\d{4})/, '$1 $2 $3 $4 $5')
+  }
+
+  const copy = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text)
+      return true
+    } catch (err) {
+      return false
+    }
+  }
 
   const [copiedBank, setCopiedBank] = useState(false)
   const copyBankToClipboard = async (text: string) => {
-    try {
-      await navigator.clipboard.writeText(text)
-      setCopiedBank(true)
-    } catch (err) {
-      setCopiedBank(false)
-    }
+    setCopiedBank(await copy(text))
   }
   const [copiedClabe, setCopiedClabe] = useState(false)
   const copyClabeToClipboard = async (text: string) => {
-    try {
-      await navigator.clipboard.writeText(text)
-      setCopiedClabe(true)
-    } catch (err) {
-      setCopiedClabe(false)
-    }
+    setCopiedClabe(await copy(text))
   }
 
   return (
@@ -52,12 +56,12 @@ export default function Index() {
             <h1 className="text-3xl font-serif ">SPEI</h1>
             <CreditCardIcon className="w-6 h-6"/>
           </div>
-          <p className="text-xl">Puedes depositarme a mi cuenta personal. En la descripción de la transferencia, pon tu nombre y el texto 'SEEK' para poder agradecerte :)</p>
+          <p className="text-xl">{config.speiInstructions ? config.speiInstructions : "Puedes depositarme a mi cuenta personal. En la descripción de la transferencia, pon tu nombre y el texto 'SEEK' para poder agradecerte :)"}</p>
           <ul className="list-disc list-inside">
-            <li className="my-3"><span className="font-bold">Banco:</span> Sistema de Transferencias y Pagos (STP)</li>
-            <p className={`text-xs underline ${copiedBank?"decoration-green-400":"decoration-blue-400"} active:decoration-wavy decoration-2 cursor-pointer`} onClick={() => copyBankToClipboard("Sistema de Transferencias y Pagos (STP)")}>{copiedBank?"¡Ya copiaste el banco!":"Haz clic aquí para copiar el banco"}</p>
-            <li className="my-3"><span className="font-bold">CLABE:</span> 646 731 2586 1108 4893</li>
-            <p className={`text-xs underline ${copiedClabe?"decoration-green-400":"decoration-blue-400"} active:decoration-wavy decoration-2 cursor-pointer`} onClick={() => copyClabeToClipboard("646731258611084893")}>{copiedClabe?"¡Ya copiaste la clabe!":"Haz clic aquí para copiar la clabe"}</p>
+            <li className="my-3"><span className="font-bold">Banco:</span> {config.bank}</li>
+            <p className={`text-xs underline ${copiedBank?"decoration-green-400":"decoration-blue-400"} active:decoration-wavy decoration-2 cursor-pointer`} onClick={() => copyBankToClipboard(config.bank)}>{copiedBank?"¡Ya copiaste el banco!":"Haz clic aquí para copiar el banco"}</p>
+            <li className="my-3"><span className="font-bold">CLABE:</span> {clabeFormatter(config.clabe)}</li>
+            <p className={`text-xs underline ${copiedClabe?"decoration-green-400":"decoration-blue-400"} active:decoration-wavy decoration-2 cursor-pointer`} onClick={() => copyClabeToClipboard(config.clabe)}>{copiedClabe?"¡Ya copiaste la clabe!":"Haz clic aquí para copiar la clabe"}</p>
           </ul>
           <hr />
           <div className="flex items-center mt-6 gap-6">
@@ -76,12 +80,12 @@ export default function Index() {
             <h1 className="text-3xl font-serif ">SPEI</h1>
             <CreditCardIcon className="w-6 h-6"/>
           </div>
-          <p className="text-xl">Puedes depositarme a mi cuenta personal. En la descripción, pon tu nombre y el texto 'SEEK' para reconocerte :)</p>
+          <p className="text-xl">{config.speiInstructions ? config.speiInstructions : "Puedes depositarme a mi cuenta personal. En la descripción de la transferencia, pon tu nombre y el texto 'SEEK' para poder agradecerte :)"}</p>
           <ul className="list-disc list-inside">
-            <li className="my-3"><span className="font-bold">Banco:</span> Sistema de Transferencias y Pagos (STP)</li>
-            <p className={`text-xs underline ${copiedBank?"decoration-green-400":"decoration-blue-400"} active:decoration-wavy decoration-2 cursor-pointer`} onClick={() => copyBankToClipboard("Sistema de Transferencias y Pagos (STP)")}>{copiedBank?"¡Ya copiaste el banco!":"Haz clic aquí para copiar el banco"}</p>
-            <li className="my-3"><span className="font-bold">CLABE:</span> 646 731 2586 1108 4893</li>
-            <p className={`text-xs underline ${copiedClabe?"decoration-green-400":"decoration-blue-400"} active:decoration-wavy decoration-2 cursor-pointer`} onClick={() => copyClabeToClipboard("646731258611084893")}>{copiedClabe?"¡Ya copiaste la clabe!":"Haz clic aquí para copiar la clabe"}</p>
+            <li className="my-3"><span className="font-bold">Banco:</span> {config.bank}</li>
+            <p className={`text-xs underline ${copiedBank?"decoration-green-400":"decoration-blue-400"} active:decoration-wavy decoration-2 cursor-pointer`} onClick={() => copyBankToClipboard(config.bank)}>{copiedBank?"¡Ya copiaste el banco!":"Haz clic aquí para copiar el banco"}</p>
+            <li className="my-3"><span className="font-bold">CLABE:</span> {clabeFormatter(config.clabe)}</li>
+            <p className={`text-xs underline ${copiedClabe?"decoration-green-400":"decoration-blue-400"} active:decoration-wavy decoration-2 cursor-pointer`} onClick={() => copyClabeToClipboard(config.clabe)}>{copiedClabe?"¡Ya copiaste la clabe!":"Haz clic aquí para copiar la clabe"}</p>
           </ul>
           <hr />
           <div className="flex items-center mt-6 gap-6">
