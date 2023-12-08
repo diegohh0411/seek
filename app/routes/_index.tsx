@@ -4,10 +4,6 @@ import { CreditCardIcon, XMarkIcon, ChevronDownIcon, ChevronUpIcon } from "@hero
 import { useOutletContext } from 'react-router-dom';
 import { useState } from 'react'
 
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-import { Doughnut } from 'react-chartjs-2'
-ChartJS.register(ArcElement, Tooltip, Legend);
-
 import { config } from "seek.config"
 
 export const meta: MetaFunction = () => {
@@ -44,45 +40,8 @@ export default function Index() {
 
   const dineroTotalRequerido: number = 15500
   const dineroTrabajado: number = 6000 + 1039 + 1600
-  const dineroDonado: number = 100
-  const chartData = {
-    labels: ['Capital trabajado', 'Capital donado', 'Faltante'],
-    datasets: [
-      {
-        label: '# of Votes',
-        data: [dineroTrabajado, dineroDonado, dineroTotalRequerido - dineroTrabajado - dineroDonado],
-        backgroundColor: [
-          'rgb(37, 99, 235)',
-          'rgb(74, 222, 128)',
-          'lightgray',
-        ],
-        borderColor: [
-          'rgb(37, 99, 235)',
-          'rgb(74, 222, 128)',
-          'gray',
-        ],
-        borderWidth: 1,
-        spacing: 10
-      },
-    ],
-  }
-
-  const chartOptions = {
-    plugins: {
-      tooltip: {
-        callbacks: {
-          label: function (context: any) {
-            const label = new Intl.NumberFormat('en-US', {
-              style: 'currency',
-              currency: 'MXN',
-            }).format(context.parsed);
-            
-            return label;
-          },
-        },
-      },
-    },
-  };  
+  const dineroDonado: number = 0
+  const dineroFaltante: number = dineroTotalRequerido - dineroTrabajado - dineroDonado
 
   return (
     <div className={`p-12 md:p-24 flex flex-col gap-12 md:gap-24 font-sans-serif`}>
@@ -155,12 +114,64 @@ export default function Index() {
 
       <hr />
 
-      <div className="flex flex-col gap-6">
-        <h3 className="text-3xl font-serif">La meta es recaudar 15,000 pesos.</h3>
-        <p>La mayor parte del dinero ya la he conseguido mediante mi trabajo como desarrollador de código. Pero, te necesito para cubrir lo último.</p>
-        <div className="w-full md:max-w-sm flex flex-col gap-3 items-center justify-center">
-          <Doughnut data={chartData} options={chartOptions} />
-          <p className="text-xs">Esta gráfica fue actualizada por última vez a las 12:55 PM del 8.DEC.23</p>
+      <div className="w-full md:flex md:justify-center md:items-center md:text-justify">
+
+        <div className="flex flex-col gap-6 md:max-w-md">
+          <h3 className="text-3xl font-serif">La meta es recaudar 15,000 pesos.</h3>
+          <p className="">La mayor parte del dinero ya la he conseguido mediante mi trabajo como desarrollador de código. Pero, te necesito para cubrir lo último:</p>
+
+          <div className="w-full gap-3 rounded-full overflow-clip flex flex-nowrap">
+              <div className='h-full bg-blue-300 px-1' style={{width: `${(dineroTrabajado/dineroTotalRequerido)*100}%`}}>
+                <p className="text-xs text-center">{Math.round((dineroTrabajado/dineroTotalRequerido)*100)}%</p>
+              </div>
+              {dineroDonado ? 
+                <div className='h-full bg-green-300 px-1' style={{width: `${(dineroDonado/dineroTotalRequerido)*100}%`}}>
+                  <p className="text-xs text-center">{Math.round((dineroDonado/dineroTotalRequerido)*100)}%</p>
+                </div>
+
+                : ''
+              }
+              { dineroFaltante > 0 ?
+                <div className='h-full bg-slate-300 px-1' style={{width: `${(dineroFaltante/dineroTotalRequerido)*100}%`}}>
+                  <p className="text-xs text-center">{Math.round((dineroFaltante/dineroTotalRequerido)*100)}%</p>
+                </div>
+
+                : ''
+              }
+              
+          </div>
+
+          <div className="flex flex-col gap-2">
+
+            <div className="flex gap-2 items-center">
+              <div className="h-2 w-2 bg-blue-300"></div>
+              <p>Dinero trabajado</p>
+              <div className="grow h-[1px] bg-black"></div>
+              <p className="text-xs text-center">{
+                  (new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' })).format(dineroTrabajado)
+                }MXN</p>
+            </div>
+
+            <div className="flex gap-2 items-center">
+              <div className="h-2 w-2 bg-green-300"></div>
+              <p>Dinero donado</p>
+              <div className="grow h-[1px] bg-black"></div>
+              <p className="text-xs text-center">{
+                  (new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' })).format(dineroDonado)
+                }MXN</p>
+            </div>
+
+            <div className="flex gap-2 items-center">
+              <div className="h-2 w-2 bg-slate-300"></div>
+              <p>Dinero faltante</p>
+              <div className="grow h-[1px] bg-black"></div>
+              <p className="text-xs text-center">{
+                  (new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' })).format(dineroFaltante)
+                }MXN</p>
+            </div>
+            
+          </div>
+
         </div>
       </div>
 
