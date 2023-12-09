@@ -61,7 +61,7 @@ export default function Index() {
             <h1 className="text-3xl font-serif ">SPEI</h1>
             <CreditCardIcon className="w-6 h-6"/>
           </div>
-          <p className="text-xl">{config.speiInstructions ? config.speiInstructions : "Puedes depositarme a mi cuenta personal. En la descripción de la transferencia, pon tu nombre y el texto 'SEEK' para poder agradecerte :)"}</p>
+          <p className="text-xl">{config.speiInstructions ? config.speiInstructions : "Puedes depositarme a mi cuenta personal. En la descripción de la transferencia, pon tu nombre y el texto 'SEEK' para poder agradecerte y tenerte en mis oraciones :)"}</p>
           <ul className="list-disc list-inside">
             <li className="my-3"><span className="font-bold">Banco:</span> {config.bank}</li>
             <p className={`text-xs underline ${copiedBank?"decoration-green-400":"decoration-blue-400"} active:decoration-wavy decoration-2 cursor-pointer`} onClick={() => copyBankToClipboard(config.bank)}>{copiedBank?"¡Ya copiaste el banco!":"Haz clic aquí para copiar el banco"}</p>
@@ -85,7 +85,7 @@ export default function Index() {
             <h1 className="text-3xl font-serif ">SPEI</h1>
             <CreditCardIcon className="w-6 h-6"/>
           </div>
-          <p className="text-xl">{config.speiInstructions ? config.speiInstructions : "Puedes depositarme a mi cuenta personal. En la descripción de la transferencia, pon tu nombre y el texto 'SEEK' para poder agradecerte :)"}</p>
+          <p className="text-xl">{config.speiInstructions ? config.speiInstructions : "Puedes depositarme a mi cuenta personal. En la descripción de la transferencia, pon tu nombre y el texto 'SEEK' para poder agradecerte y tenerte en mis oraciones :)"}</p>
           <ul className="list-disc list-inside">
             <li className="my-3"><span className="font-bold">Banco:</span> {config.bank}</li>
             <p className={`text-xs underline ${copiedBank?"decoration-green-400":"decoration-blue-400"} active:decoration-wavy decoration-2 cursor-pointer`} onClick={() => copyBankToClipboard(config.bank)}>{copiedBank?"¡Ya copiaste el banco!":"Haz clic aquí para copiar el banco"}</p>
