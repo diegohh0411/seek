@@ -40,7 +40,11 @@ export default function Index() {
 
   const dineroTotalRequerido: number = 15500
   const dineroTrabajado: number = 6000 + 1039 + 1600
-  const dineroDonado: number = 2500
+  var dineroDonado: number = 0
+  dineroDonado += 2500 // Donación de Mariana Garza
+  dineroDonado += 500 // Donación de Andrea Lozano Lopez
+
+  const fechaDeActualizacion = "8/12/2023 a las 9:21PM."
   const dineroFaltante: number = dineroTotalRequerido - dineroTrabajado - dineroDonado
 
   return (
@@ -172,7 +176,7 @@ export default function Index() {
             
           </div>
 
-          <p className="text-xs">* La información de esta gráfica fue actualizada por última vez el 8/12/2023 a las 9:02PM.</p>
+          <p className="text-xs">* La información de esta gráfica fue actualizada por última vez el {fechaDeActualizacion}</p>
 
         </div>
       </div>
