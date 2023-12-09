@@ -40,7 +40,7 @@ export default function Index() {
 
   const dineroTotalRequerido: number = 15500
   const dineroTrabajado: number = 6000 + 1039 + 1600
-  const dineroDonado: number = 0
+  const dineroDonado: number = 2500
   const dineroFaltante: number = dineroTotalRequerido - dineroTrabajado - dineroDonado
 
   return (
