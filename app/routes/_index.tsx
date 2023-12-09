@@ -172,6 +172,8 @@ export default function Index() {
             
           </div>
 
+          <p className="text-xs">* La información de esta gráfica fue actualizada por última vez el 8/12/2023 a las 9:02PM.</p>
+
         </div>
       </div>
 
