@@ -43,8 +43,9 @@ export default function Index() {
   var dineroDonado: number = 0
   dineroDonado += 2500 // Donación de Mariana Garza
   dineroDonado += 500 // Donación de Andrea Lozano Lopez
+  dineroDonado += 400 // Donación de Ana Marce
 
-  const fechaDeActualizacion = "8/12/2023 a las 9:21PM."
+  const fechaDeActualizacion = "8/12/2023 a las 10:36PM."
   const dineroFaltante: number = dineroTotalRequerido - dineroTrabajado - dineroDonado
 
   return (
