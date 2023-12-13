@@ -39,12 +39,14 @@ export default function Index() {
   }
 
   const dineroTotalRequerido: number = 15500
-  const dineroTrabajado: number = 6000 + 1039 + 1600
+  var dineroTrabajado: number = 6000 + 1039 + 1600
+  dineroTrabajado += 1775 // Primera quincena de Diciembre menos 725 para pagar rappi card...
   var dineroDonado: number = 0
   dineroDonado += 2500 // Donación de Mariana Garza
   dineroDonado += 500 // Donación de Andrea Lozano Lopez
   dineroDonado += 400 // Donación de Ana Marce
   dineroDonado += 50 // Donación de José Daniel Cantú Cantú
+  dineroDonado += 1000 // Donación de Ariana Saenz
 
   const fechaDeActualizacion = "8/12/2023 a las 10:56PM."
   const dineroFaltante: number = dineroTotalRequerido - dineroTrabajado - dineroDonado
