@@ -48,7 +48,7 @@ export default function Index() {
   dineroDonado += 50 // Donación de José Daniel Cantú Cantú
   dineroDonado += 1000 // Donación de Ariana Saenz
 
-  const fechaDeActualizacion = "8/12/2023 a las 10:56PM."
+  const fechaDeActualizacion = "13/12/2023 a las 5:58PM."
   const dineroFaltante: number = dineroTotalRequerido - dineroTrabajado - dineroDonado
 
   return (
