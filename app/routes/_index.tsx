@@ -39,8 +39,10 @@ export default function Index() {
   }
 
   const dineroTotalRequerido: number = 15500
+
   var dineroTrabajado: number = 6000 + 1039 + 1600
   dineroTrabajado += 1775 // Primera quincena de Diciembre menos 725 para pagar rappi card...
+
   var dineroDonado: number = 0
   dineroDonado += 2500 // Donación de Mariana Garza
   dineroDonado += 500 // Donación de Andrea Lozano Lopez
@@ -50,7 +52,10 @@ export default function Index() {
   dineroDonado += 1000 // Donación de David Blanco
 
   const fechaDeActualizacion = "15/12/2023 a las 12:33PM."
-  const dineroFaltante: number = dineroTotalRequerido - dineroTrabajado - dineroDonado
+
+  var dineroFaltante: number = dineroTotalRequerido - dineroTrabajado - dineroDonado
+
+  var dineroTotalRecaudado = dineroTrabajado + dineroDonado
 
   return (
     <div className={`p-12 md:p-24 flex flex-col gap-12 md:gap-24 font-sans-serif`}>
@@ -130,19 +135,19 @@ export default function Index() {
           <p className="">La mayor parte del dinero ya la he conseguido mediante mi trabajo como desarrollador de código. Pero, te necesito para cubrir lo último:</p>
 
           <div className="w-full gap-3 rounded-full overflow-clip flex flex-nowrap">
-              <div className='h-full bg-blue-300 px-1' style={{width: `${(dineroTrabajado/dineroTotalRequerido)*100}%`}}>
-                <p className="text-xs text-center">{Math.round((dineroTrabajado/dineroTotalRequerido)*100)}%</p>
+              <div className='h-full bg-blue-300 px-1' style={{width: `${(dineroTrabajado/dineroTotalRecaudado)*100}%`}}>
+                <p className="text-xs text-center">{Math.round((dineroTrabajado/dineroTotalRecaudado)*100)}%</p>
               </div>
               {dineroDonado ? 
-                <div className='h-full bg-green-300 px-1' style={{width: `${(dineroDonado/dineroTotalRequerido)*100}%`}}>
-                  <p className="text-xs text-center">{Math.round((dineroDonado/dineroTotalRequerido)*100)}%</p>
+                <div className='h-full bg-green-300 px-1' style={{width: `${(dineroDonado/dineroTotalRecaudado)*100}%`}}>
+                  <p className="text-xs text-center">{Math.round((dineroDonado/dineroTotalRecaudado)*100)}%</p>
                 </div>
 
                 : ''
               }
               { dineroFaltante > 0 ?
-                <div className='h-full bg-slate-300 px-1' style={{width: `${(dineroFaltante/dineroTotalRequerido)*100}%`}}>
-                  <p className="text-xs text-center">{Math.round((dineroFaltante/dineroTotalRequerido)*100)}%</p>
+                <div className='h-full bg-slate-300 px-1' style={{width: `${(dineroFaltante/dineroTotalRecaudado)*100}%`}}>
+                  <p className="text-xs text-center">{Math.round((dineroFaltante/dineroTotalRecaudado)*100)}%</p>
                 </div>
 
                 : ''
