@@ -47,8 +47,9 @@ export default function Index() {
   dineroDonado += 400 // Donación de Ana Marce
   dineroDonado += 50 // Donación de José Daniel Cantú Cantú
   dineroDonado += 1000 // Donación de Ariana Saenz
+  dineroDonado += 1000 // Donación de David Blanco
 
-  const fechaDeActualizacion = "13/12/2023 a las 5:58PM."
+  const fechaDeActualizacion = "15/12/2023 a las 12:33PM."
   const dineroFaltante: number = dineroTotalRequerido - dineroTrabajado - dineroDonado
 
   return (
@@ -174,7 +175,7 @@ export default function Index() {
               <p>Dinero faltante</p>
               <div className="grow h-[1px] bg-black"></div>
               <p className="text-xs text-center">{
-                  (new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' })).format(dineroFaltante)
+                  dineroFaltante > 0 ? (new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' })).format(dineroFaltante) : "$0.00"
                 }MXN</p>
             </div>
             
